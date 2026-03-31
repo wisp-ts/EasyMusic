@@ -1243,12 +1243,13 @@
 
       window.EASYMUSIC_CONFIG = {
         appName: "EasyMusic",
-
         apiKey: "AIzaSyCLYouB81kQqkjrYDM9V2OcfcfG0O6aNoQ",
         regionCode: "US",
         maxResults: 20,
-
-        defaultOrder: [ "relevance",
+        defaultOrder: "relevance",
+        enableVideoDetails: true,
+        cacheTTLHours: 24,
+        fallbackMixes: [
           "lofi hip hop",
           "rap hits",
           "pop hits",
@@ -1289,6 +1290,8 @@
 
         const state = {
           view: "home",
+          results: [],
+          trending: [],
           query: "",
           order: (CFG.defaultOrder || "relevance"),
 
@@ -1302,19 +1305,39 @@
           searchHistory: [],
 
           playlists: [],
+          activePlaylistId: null,
+
+          playerReady: false,
+          isPlaying: false,
           lastVideoId: "",
           suppressSeek: false,
 
           shuffle: false,
           repeat: "off",
+          volume: 70,
+          lastVolume: 70,
+          muted: false,
+
+          detailsCache: {},
+
+          settings: {
             regionCode: (CFG.regionCode || "US"),
             maxResults: Number(CFG.maxResults || 25),
             defaultOrder: (CFG.defaultOrder || "relevance"),
             safeSearch: "moderate",
             videoDuration: "any",
-        }
+            enableVideoDetails: (CFG.enableVideoDetails !== false),
+            cacheTTLHours: Number(CFG.cacheTTLHours || 24),
+            showRecentsOnHome: false,
+            compactMode: false,
+            autoplayOnSelect: true
+          }
+        };
+
+        function applyCompactMode() {
           document.body.classList.toggle("compact", !!state.settings.compactMode);
-        
+        }
+
 
         function save() {
           const payload = {
