@@ -72,7 +72,7 @@ Create a bookmark and paste this as the URL:
 
 ```js
 javascript:(function(){
-  const url="https://YOUR-SITE-URL.com";
+  const url="https://easy-music-weld.vercel.app/";
   const win=window.open('about:blank','_blank');
   fetch(url)
     .then(r=>r.text())
@@ -89,18 +89,12 @@ javascript:(function(){
 ```js
 javascript:(function(){
   const win=window.open('about:blank','_blank');
-  const html=`PASTE_YOUR_FULL_HTML_HERE`;
+  const html=`paste index.html here`;
   win.document.open();
   win.document.write(html);
   win.document.close();
 })();
 ```
-
-### ⚠️ Notes
-
-- Replace `YOUR-SITE-URL.com` with your deployed site
-- Works best when hosted (GitHub Pages, etc.)
-- Keeps UI clean and distraction-free
 
 ## ⚙️ Settings
 
